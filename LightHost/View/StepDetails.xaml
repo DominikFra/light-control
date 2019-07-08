@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="LightHost.View.StepDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LightHost.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="GreenBrush" Color="Green"/>
+            <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock>
+                <Run Text="Seite: "/>
+                <Run Text="{Binding Page, Mode=OneWay}"/>
+            </TextBlock>
+            <TextBlock Text="{Binding Name}"/>
+            <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                <TextBlock Foreground="Black" FontSize="10" Text="Effekt" Width="120"/>
+                <TextBlock Foreground="Black" FontSize="10" Text="Ziel" Width="35"/>
+                <TextBlock Foreground="Black" FontSize="10" Text="Dauer" Width="35"/>
+                <TextBlock Foreground="Black" FontSize="10" Text="Warten" Width="35"/>
+            </StackPanel>
+            <ItemsControl ItemsSource="{Binding Changes}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" TextBlock.FontSize="10">
+                            <Border Width="8">
+                                <Ellipse Width="8" Height="8" Fill="White" Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            </Border>
+                            <TextBlock x:Name="LightName"  Text="{Binding Name}" Width="100"/>
+                            <TextBlock Text="->" Width="20"/>
+                            <TextBlock Text="{Binding TargetValue}" Width="35"/>
+                            <TextBlock Text="{Binding FadeTime}" Width="35"/>
+                            <TextBlock Text="{Binding Delay}" Width="35"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
